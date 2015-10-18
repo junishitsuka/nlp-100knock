@@ -1,18 +1,20 @@
 package main
 
 import "fmt"
+import "strings"
+import "strconv"
 
 func main() {
-	str1 := "パトカー"
-	str2 := "タクシー"
-	// 一旦rune配列に変換してから文字列操作を行う
-	rune1 := []rune(str1)
-	rune2 := []rune(str2)
-	result := ""
+	statement := "Now I need a drink, alcoholic of course, after the heavy lectures involving quantum mechanics."
 
-	for i, _ := range rune1 {
-		result += string(rune1[i])
-		result += string(rune2[i])
+	words := strings.Split(statement, " ")
+	result := make([]int, len(words))
+	// resultを空のスライスで宣言してappendすることもできるが
+	// performanceが良くないのでサイズで初期化する
+
+	for i, v := range words {
+		fmt.Println(v + ":" + strconv.Itoa(len(v)))
+		result[i] = len(v)
 	}
 	fmt.Println(result)
 }

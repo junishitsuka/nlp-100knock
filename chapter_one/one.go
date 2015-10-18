@@ -3,12 +3,18 @@ package main
 import "fmt"
 
 func main() {
-	target := "stressed"
+	target := "パタトクカシーー"
 
 	result := ""
-	l := len(target) // len(str) で文字列・配列の長さを取得できる
-	for i, _ := range target {
-		result += string(target[l - i - 1]) // + 演算子で文字列を結合
+	for i, v := range target {
+		if i % 2 == 1 {
+			result += string(v)
+		}
 	}
 	fmt.Println(result)
 }
+
+// string = []byte
+// rune = unicode code point, int32 alias
+// for で文字列を回すとruneが取れる
+// string でキャストすれば文字列に戻る
