@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"os"
 	"bufio"
+	"strings"
 )
 
 // How to Confirm
-// cat hightemp.txt | wc -l
+// cat hightemp.txt | sed -e "s/\t/ /g"
 func main() {
 	filename := "./hightemp.txt"
-	count := 0
 
 	fp, err := os.Open(filename)
 	if err != nil {
@@ -20,7 +20,7 @@ func main() {
 
 	scanner := bufio.NewScanner(fp)
 	for scanner.Scan() {
-		count++
+		replaced := strings.Replace(scanner.Text(), "\t", " ", -1)
+		fmt.Println(replaced)
 	}
-	fmt.Println(count)
 }
