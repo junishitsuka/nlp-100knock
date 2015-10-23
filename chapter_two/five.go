@@ -8,7 +8,7 @@ import (
 )
 
 // How to Confirm
-// cat hightemp.txt | head -n N
+// cat hightemp.txt | tail -n N
 func main() {
 	fp, err := os.Open("hightemp.txt")
 	if err != nil {
