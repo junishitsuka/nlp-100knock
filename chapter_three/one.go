@@ -2,38 +2,26 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"bufio"
-	"encoding/json"
+	"io/ioutil"
+	"strings"
+	"regexp"
 )
 
-type Wiki struct {
-	Title string `json:"title"`
-	Text  string `json:"text"`
-}
-
 func main() {
-	filename := "./jawiki-country.json"
+	filename := "./jawiki-british.json"
 
-	fp, err := os.Open(filename)
+	// ファイル全体を読み込む
+	buf, err := ioutil.ReadFile(filename)
 	if err != nil {
 		panic(err)
 	}
-	defer fp.Close()
 
-	scanner := bufio.NewScanner(fp)
-	for scanner.Scan() {
-		var wiki Wiki
-		text := scanner.Text()
-		line := []byte(text)
-		err := json.Unmarshal(line, &wiki)
-		if err != nil {
-			panic(err)
-		}
+	text := string(buf)
+	line := strings.Split(text, "\\n")
 
-		fmt.Println(wiki.Title)
-		if wiki.Title == "イギリス" {
-			fmt.Println(wiki.Text)
+	for _, v := range line {
+		if m, _ := regexp.MatchString("Category", v); m {
+			fmt.Println(v)
 		}
 	}
 }
